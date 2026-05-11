@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="bg">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#557dbc" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Хоум Офис Клийн — професионално почистване в Пловдив</title>
+    <meta
+      name="description"
+      content="Професионално почистване на домове, офиси, апартаменти и прозорци в Пловдив. Основни, еднократни, абонаментни и след-ремонтни услуги."
+    />
+    <meta property="og:locale" content="bg_BG" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://homeofficeclean.com/" />
+    <meta property="og:title" content="Хоум Офис Клийн — професионално почистване в Пловдив" />
+    <meta property="og:description" content="Професионално почистване на домове, офиси, апартаменти и прозорци в Пловдив." />
+    <meta name="twitter:card" content="summary" />
+
+    <!--
+      Google Ads gtag with Consent Mode v2.
+      Consent is defaulted to "denied" for ad/analytics storage.
+      The CookieBanner calls window.gtag('consent','update',{...}) after the
+      user accepts/declines. The form-submit conversion event always fires —
+      Google handles consent-aware signal downgrading server-side.
+    -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17906353585"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){window.dataLayer.push(arguments);}
+      window.gtag = gtag;
+
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        functionality_storage: 'granted',
+        security_storage: 'granted',
+        wait_for_update: 500
+      });
+
+      gtag('js', new Date());
+      gtag('config', 'AW-17906353585');
+    </script>
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <div id="root" class="flex flex-1 flex-col"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,202 @@
+{
+  "site": {
+    "name": "Home Office Clean",
+    "tagline": "Professional cleaning in Plovdiv"
+  },
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "about": "About",
+    "contact": "Contact",
+    "callUs": "Call us"
+  },
+  "common": {
+    "from": "from",
+    "learnMore": "Learn more",
+    "bookNow": "Get a quote",
+    "all": "All"
+  },
+  "home": {
+    "hero": {
+      "title": "Professional cleaning for home and office",
+      "subtitle": "Standard, deep, subscription, and post-construction cleaning in Plovdiv and the surrounding area. Book online — we arrive with the team and the equipment.",
+      "primaryCta": "Get a quote",
+      "secondaryCta": "See services"
+    },
+    "stats": [
+      {"value": "{{years}}+", "label": "years of experience"},
+      {"value": "1200+", "label": "happy clients"},
+      {"value": "6", "label": "service types"},
+      {"value": "100%", "label": "insured team"}
+    ],
+    "services": {
+      "eyebrow": "Services",
+      "title": "Care for every kind of space",
+      "subtitle": "Pick the service — we deliver the result. Custom quote on request, a fixed team, quality guaranteed."
+    },
+    "whyUs": {
+      "eyebrow": "Why us",
+      "title": "What sets us apart",
+      "items": [
+        {
+          "title": "Fixed team",
+          "body": "The same trained crew every visit — no surprises, no repeat explanations."
+        },
+        {
+          "title": "Transparent quotes",
+          "body": "You get a quote before the visit. No hidden fees, no surcharges."
+        },
+        {
+          "title": "Safe products",
+          "body": "Certified products that are safe for children, pets and people with allergies."
+        },
+        {
+          "title": "Insured and guaranteed",
+          "body": "Every team is insured. Not happy — we come back, no extra charge."
+        }
+      ]
+    },
+    "contactCta": {
+      "eyebrow": "Get in touch",
+      "title": "Ready when you are",
+      "subtitle": "Tell us briefly what you need and we'll come back with a quote within one working day."
+    }
+  },
+  "servicesIndex": {
+    "title": "Services",
+    "subtitle": "Pick the service that fits your need. We can combine them if useful."
+  },
+  "service": {
+    "includes": "What's included",
+    "bookCta": "Get a quote for this service",
+    "backToServices": "← All services"
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Send a short message or call us directly.",
+    "phone": "Phone",
+    "email": "Email",
+    "hours": "Working hours",
+    "address": "Address"
+  },
+  "form": {
+    "name": "Name (optional)",
+    "phone": "Phone",
+    "email": "Email",
+    "message": "Short message",
+    "messagePlaceholder": "Type of space, size, preferred time…",
+    "marketingOptIn": "I agree to receive offers and updates by email",
+    "submit": "Send enquiry",
+    "submitting": "Sending…",
+    "successTitle": "Thank you!",
+    "successBody": "We've received your enquiry and will be in touch within one working day.",
+    "errorTitle": "Something went wrong",
+    "errorBody": "Please try again or call us at {{phone}}.",
+    "errors": {
+      "phoneRequired": "Please enter a phone number.",
+      "phoneInvalid": "Invalid phone number.",
+      "emailRequired": "Please enter an email.",
+      "emailInvalid": "Invalid email address.",
+      "messageRequired": "Please enter a short message.",
+      "messageTooShort": "Message is too short."
+    }
+  },
+  "footer": {
+    "tagline": "Professional cleaning for home and office in Plovdiv.",
+    "servicesHeading": "Services",
+    "companyHeading": "Company",
+    "contactHeading": "Contact",
+    "legalHeading": "Legal",
+    "privacy": "Privacy",
+    "cookies": "Cookies",
+    "rights": "All rights reserved."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "body": "The page you're looking for doesn't exist or has moved.",
+    "cta": "Back to home"
+  },
+  "cookies": {
+    "bannerTitle": "We use cookies",
+    "bannerBody": "We use cookies for marketing and analytics. Accepting allows their use.",
+    "privacyLink": "Read the privacy policy",
+    "accept": "Accept",
+    "decline": "Decline",
+    "title": "Cookie policy",
+    "lastUpdated": "Last updated: 2026-05-11",
+    "intro": "This site uses storage technologies (cookies and similar) in your browser. Some are required for the site to function. Others are used for marketing and analytics — these are only activated if you accept them.",
+    "tableHeading": "What we use",
+    "tableHeaders": {
+      "name": "Name",
+      "purpose": "Purpose",
+      "provider": "Provider",
+      "duration": "Duration"
+    },
+    "table": [
+      {
+        "name": "hox-consent-v1",
+        "purpose": "Remembers your cookie choice",
+        "provider": "homeofficeclean.com",
+        "duration": "12 months"
+      },
+      {
+        "name": "_gcl_au, _gcl_aw, _gcl_dc",
+        "purpose": "Google Ads attribution for completed forms",
+        "provider": "Google Ads",
+        "duration": "up to 90 days"
+      },
+      {
+        "name": "_ga, _ga_*",
+        "purpose": "Traffic analytics (when GA4 is enabled)",
+        "provider": "Google Analytics",
+        "duration": "up to 2 years"
+      }
+    ],
+    "controlHeading": "How to change your choice",
+    "controlBody": "You can withdraw or re-grant consent at any time.",
+    "currentLabel": "Current choice",
+    "notSet": "You haven't chosen yet"
+  },
+  "privacy": {
+    "title": "Privacy policy",
+    "lastUpdated": "Last updated: 2026-05-11",
+    "blocks": [
+      {
+        "heading": "1. Who we are",
+        "body": "{{legalName}} (\"we\", \"us\", \"our\") is the data controller within the meaning of Regulation (EU) 2016/679 (GDPR) for all personal data collected through this website. For privacy questions: {{email}} or {{phone}}."
+      },
+      {
+        "heading": "2. What we collect",
+        "body": "Through the contact form: your name (optional), phone number, email address, short message, and marketing consent. When you visit the site we may also collect: IP address, device and browser type, pages visited, traffic source (e.g. an ad click). These are collected only if you accept marketing cookies."
+      },
+      {
+        "heading": "3. Why we collect it",
+        "body": "• To respond to your enquiry with a quote.\n• To send marketing emails if you ticked the corresponding consent.\n• To measure ad-campaign effectiveness (only with your consent).\n• To meet legal obligations (accounting, responding to competent authorities)."
+      },
+      {
+        "heading": "4. Legal basis",
+        "body": "• Pre-contractual measures (Art. 6(1)(b) GDPR) — to handle your enquiry.\n• Consent (Art. 6(1)(a) GDPR) — for marketing emails and marketing/analytics cookies.\n• Legitimate interests (Art. 6(1)(f) GDPR) — to protect the form against spam and abuse."
+      },
+      {
+        "heading": "5. Retention period",
+        "body": "Contact-form enquiries are kept for up to 24 months from submission. Marketing-list emails are kept until you withdraw consent. Accounting data is kept as required by applicable law (typically 10 years)."
+      },
+      {
+        "heading": "6. Who we share data with",
+        "body": "• Web3Forms (USA) — processes form submissions and delivers them to our inbox. Protected with TLS.\n• Google (USA) — Google Ads and (when enabled) Google Analytics for measuring ad-campaign effectiveness, only with your consent.\n• Hosting and email providers — for storing and delivering submitted enquiries.\n\nWe do not sell data to third parties."
+      },
+      {
+        "heading": "7. Your rights",
+        "body": "You have the right to:\n• request access to data we hold about you\n• request correction or deletion\n• restrict processing\n• object to processing\n• withdraw any consent at any time\n• lodge a complaint with the Bulgarian Data Protection Commission (kzld.bg)\n\nTo exercise these rights, email {{email}}."
+      },
+      {
+        "heading": "8. Security",
+        "body": "Data is transmitted only over an encrypted HTTPS connection. Access to submissions is limited to people engaged in customer service. We keep only the data needed to deliver the service."
+      },
+      {
+        "heading": "9. Changes to this policy",
+        "body": "On a change we update the date above and publish the new version on this page. For significant changes, we contact you by email if you are already registered with us."
+      }
+    ]
+  }
+}
