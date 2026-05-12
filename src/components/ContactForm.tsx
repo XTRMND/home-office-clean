@@ -1,9 +1,10 @@
-import {useState} from 'react';
+import {useRef, useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {z} from 'zod';
 import {useTranslation} from 'react-i18next';
 import {CheckCircle2, AlertTriangle} from 'lucide-react';
+import HCaptcha from '@hcaptcha/react-hcaptcha';
 import {Button} from '@/components/ui/Button';
 import {siteInfo} from '@/data/siteInfo';
 import {cn} from '@/lib/cn';
@@ -11,6 +12,8 @@ import {fireFormConversion} from '@/lib/analytics';
 
 const FORM_ENDPOINT = import.meta.env.VITE_FORM_ENDPOINT;
 const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+const HCAPTCHA_SITEKEY =
+  import.meta.env.VITE_HCAPTCHA_SITEKEY || '50b2fe65-b00b-4b9e-ad62-3ba471098be2';
 
 const phoneFormatRe = /^[+\d][\d\s\-().]+$/;
 const countDigits = (s: string) => (s.match(/\d/g) ?? []).length;
@@ -38,6 +41,7 @@ function makeSchema(t: (k: string) => string) {
       .min(1, t('form.errors.messageRequired'))
       .min(10, t('form.errors.messageTooShort')),
     marketingOptIn: z.boolean(),
+    captchaToken: z.string().min(1, t('form.errors.captchaRequired')),
     // Web3Forms honeypot — bots fill this; we reject if non-empty.
     botcheck: z.string().optional(),
   });
@@ -49,16 +53,18 @@ type Status = 'idle' | 'submitting' | 'success' | 'error';
 export function ContactForm({className}: {className?: string}) {
   const {t, i18n} = useTranslation();
   const [status, setStatus] = useState<Status>('idle');
+  const captchaRef = useRef<HCaptcha>(null);
 
   const schema = makeSchema(t);
   const {
     register,
     handleSubmit,
+    setValue,
     formState: {errors},
     reset,
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
-    defaultValues: {marketingOptIn: true, botcheck: ''},
+    defaultValues: {marketingOptIn: true, botcheck: '', captchaToken: ''},
   });
 
   const onSubmit = async (values: FormValues) => {
@@ -86,6 +92,7 @@ export function ContactForm({className}: {className?: string}) {
             email: values.email,
             message: values.message,
             marketing_opt_in: values.marketingOptIn ? 'yes' : 'no',
+            'h-captcha-response': values.captchaToken,
             locale: i18n.language,
             source_url: window.location.href,
             referrer: document.referrer || '',
@@ -105,11 +112,14 @@ export function ContactForm({className}: {className?: string}) {
         await new Promise((r) => setTimeout(r, 500));
       }
       fireFormConversion();
-      reset({marketingOptIn: true, botcheck: ''});
+      reset({marketingOptIn: true, botcheck: '', captchaToken: ''});
+      captchaRef.current?.resetCaptcha();
       setStatus('success');
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error('[form] submit failed:', err);
+      captchaRef.current?.resetCaptcha();
+      setValue('captchaToken', '');
       setStatus('error');
     }
   };
@@ -210,6 +220,20 @@ export function ContactForm({className}: {className?: string}) {
         />
         <span>{t('form.marketingOptIn')}</span>
       </label>
+
+      <div>
+        <HCaptcha
+          ref={captchaRef}
+          sitekey={HCAPTCHA_SITEKEY}
+          reCaptchaCompat={false}
+          onVerify={(token) => setValue('captchaToken', token, {shouldValidate: true})}
+          onExpire={() => setValue('captchaToken', '', {shouldValidate: true})}
+          onError={() => setValue('captchaToken', '', {shouldValidate: true})}
+        />
+        {errors.captchaToken && (
+          <p className="mt-1 text-xs text-red-600">{errors.captchaToken.message}</p>
+        )}
+      </div>
 
       <Button type="submit" disabled={status === 'submitting'} size="lg" className="w-full sm:w-auto">
         {status === 'submitting' ? t('form.submitting') : t('form.submit')}

@@ -3,7 +3,7 @@
 interface ImportMetaEnv {
   readonly VITE_FORM_ENDPOINT?: string;
   readonly VITE_WEB3FORMS_ACCESS_KEY?: string;
-  readonly VITE_RECAPTCHA_SITE_KEY?: string;
+  readonly VITE_HCAPTCHA_SITEKEY?: string;
   readonly VITE_GOOGLE_ADS_CONVERSION_ID?: string;
   readonly VITE_GOOGLE_ADS_CONVERSION_LABEL?: string;
   readonly VITE_GTM_ID?: string;

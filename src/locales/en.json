@@ -99,7 +99,8 @@
       "emailRequired": "Please enter an email.",
       "emailInvalid": "Invalid email address.",
       "messageRequired": "Message is required.",
-      "messageTooShort": "Message is too short."
+      "messageTooShort": "Message is too short.",
+      "captchaRequired": "Please confirm you're not a robot."
     }
   },
   "footer": {
@@ -184,7 +185,7 @@
       },
       {
         "heading": "6. Who we share data with",
-        "body": "• Web3Forms (USA) — processes form submissions and delivers them to our inbox. Protected with TLS.\n• Google (USA) — Google Ads and (when enabled) Google Analytics for measuring ad-campaign effectiveness, only with your consent.\n• Hosting and email providers — for storing and delivering submitted enquiries.\n\nWe do not sell data to third parties."
+        "body": "• Web3Forms (USA) — processes form submissions and delivers them to our inbox. Protected with TLS.\n• hCaptcha (Intuition Machines, USA) — protects the form from spam and abuse. Their policy: hcaptcha.com/privacy.\n• Google (USA) — Google Ads and (when enabled) Google Analytics for measuring ad-campaign effectiveness, only with your consent.\n• Hosting and email providers — for storing and delivering submitted enquiries.\n\nWe do not sell data to third parties."
       },
       {
         "heading": "7. Your rights",
