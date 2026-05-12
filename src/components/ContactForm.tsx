@@ -12,21 +12,29 @@ import {fireFormConversion} from '@/lib/analytics';
 const FORM_ENDPOINT = import.meta.env.VITE_FORM_ENDPOINT;
 const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
 
-const phoneRe = /^[+\d][\d\s\-().]{5,}$/;
+const phoneFormatRe = /^[+\d][\d\s\-().]+$/;
+const countDigits = (s: string) => (s.match(/\d/g) ?? []).length;
 
 function makeSchema(t: (k: string) => string) {
   return z.object({
-    name: z.string().optional(),
+    name: z
+      .string()
+      .trim()
+      .min(2, t('form.errors.nameRequired')),
     phone: z
       .string()
+      .trim()
       .min(1, t('form.errors.phoneRequired'))
-      .regex(phoneRe, t('form.errors.phoneInvalid')),
+      .refine((v) => phoneFormatRe.test(v), t('form.errors.phoneInvalid'))
+      .refine((v) => countDigits(v) >= 7 && countDigits(v) <= 15, t('form.errors.phoneInvalid')),
     email: z
       .string()
+      .trim()
       .min(1, t('form.errors.emailRequired'))
       .email(t('form.errors.emailInvalid')),
     message: z
       .string()
+      .trim()
       .min(1, t('form.errors.messageRequired'))
       .min(10, t('form.errors.messageTooShort')),
     marketingOptIn: z.boolean(),
@@ -65,18 +73,15 @@ export function ContactForm({className}: {className?: string}) {
         // Web3Forms payload shape: access_key + the fields you want included in
         // the admin email. `subject` and `from_name` are special, the rest end
         // up as a key:value table in the delivered message.
-        const subject =
-          values.name
-            ? `Ново запитване от ${values.name} (${i18n.language.toUpperCase()})`
-            : `Ново запитване (${i18n.language.toUpperCase()})`;
+        const subject = `Ново запитване от ${values.name} (${i18n.language.toUpperCase()})`;
         const res = await fetch(FORM_ENDPOINT, {
           method: 'POST',
           headers: {'Content-Type': 'application/json', Accept: 'application/json'},
           body: JSON.stringify({
             access_key: WEB3FORMS_KEY,
             subject,
-            from_name: values.name || 'Site contact form',
-            name: values.name || '',
+            from_name: values.name,
+            name: values.name,
             phone: values.phone,
             email: values.email,
             message: values.message,
@@ -150,13 +155,14 @@ export function ContactForm({className}: {className?: string}) {
         className="absolute -left-[9999px] opacity-0 pointer-events-none h-0 w-0"
       />
 
-      <Field label={t('form.name')} htmlFor="name">
+      <Field label={t('form.name')} htmlFor="name" error={errors.name?.message}>
         <input
           id="name"
           type="text"
           autoComplete="name"
+          required
           {...register('name')}
-          className={inputCls()}
+          className={inputCls(!!errors.name)}
         />
       </Field>
 
