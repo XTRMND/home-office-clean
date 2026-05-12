@@ -17,11 +17,14 @@ export function Footer() {
       <Container className="py-12 sm:py-16">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
-            <div className="flex items-center gap-2">
-              <span className="grid h-9 w-9 place-items-center rounded-lg bg-brand-500 text-white font-bold">H</span>
-              <span className="text-lg font-semibold tracking-tight">{t('site.name')}</span>
-            </div>
-            <p className="mt-3 text-sm text-zinc-600 max-w-xs">{t('footer.tagline')}</p>
+            <img
+              src="/logo.png"
+              alt={t('site.name')}
+              width={511}
+              height={114}
+              className="h-10 w-auto"
+            />
+            <p className="mt-4 text-sm text-zinc-600 max-w-xs">{t('footer.tagline')}</p>
           </div>
 
           <div>

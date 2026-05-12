@@ -23,9 +23,14 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/90 backdrop-blur">
       <Container className="flex h-16 items-center justify-between">
-        <NavLink to={prefix} className="flex items-center gap-2">
-          <span className="grid h-9 w-9 place-items-center rounded-lg bg-brand-500 text-white font-bold">H</span>
-          <span className="text-lg font-semibold tracking-tight">{t('site.name')}</span>
+        <NavLink to={prefix} className="flex items-center" aria-label={t('site.name')}>
+          <img
+            src="/logo.png"
+            alt={t('site.name')}
+            width={511}
+            height={114}
+            className="h-9 w-auto sm:h-10"
+          />
         </NavLink>
 
         <nav className="hidden md:flex items-center gap-1">
