@@ -61,9 +61,7 @@ export function Testimonials({locale}: {locale: Locale}) {
   const scrollByCard = (dir: -1 | 1) => {
     const node = scrollRef.current;
     if (!node) return;
-    const card = node.querySelector('li');
-    const cardWidth = card?.clientWidth ?? 320;
-    node.scrollBy({left: dir * (cardWidth + 16), behavior: 'smooth'});
+    node.scrollBy({left: dir * node.clientWidth * 0.8, behavior: 'smooth'});
   };
 
   return (
@@ -115,7 +113,7 @@ export function Testimonials({locale}: {locale: Locale}) {
             onPointerUp={endDrag}
             onPointerCancel={endDrag}
             className={cn(
-              'overflow-x-auto pb-4 snap-x snap-mandatory [scrollbar-width:thin] touch-pan-x',
+              'overflow-x-auto pb-4 [scrollbar-width:thin] touch-pan-x scroll-smooth',
               dragging ? 'cursor-grabbing select-none' : 'cursor-grab',
             )}
           >
@@ -123,7 +121,7 @@ export function Testimonials({locale}: {locale: Locale}) {
               {ordered.map((r, i) => (
                 <li
                   key={`${r.name}-${i}`}
-                  className="snap-start shrink-0 w-[300px] sm:w-[340px] rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm flex flex-col"
+                  className="shrink-0 w-[300px] sm:w-[340px] rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm flex flex-col"
                 >
                   <Stars rating={r.rating} />
                   <p className="mt-4 text-zinc-700 leading-relaxed">“{r.text}”</p>
