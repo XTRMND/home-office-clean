@@ -1,9 +1,11 @@
+import {useRef, useState, type PointerEvent as ReactPointerEvent} from 'react';
 import {useTranslation} from 'react-i18next';
-import {Star, ExternalLink} from 'lucide-react';
+import {Star, ExternalLink, ChevronLeft, ChevronRight} from 'lucide-react';
 import {Container} from '@/components/ui/Container';
 import {Section} from '@/components/ui/Section';
 import {testimonials, googleAggregate, type Testimonial} from '@/data/testimonials';
 import type {Locale} from '@/data/services';
+import {cn} from '@/lib/cn';
 
 function Stars({rating}: {rating: number}) {
   return (
@@ -29,8 +31,40 @@ function pickForLocale(locale: Locale): Testimonial[] {
 
 export function Testimonials({locale}: {locale: Locale}) {
   const {t} = useTranslation();
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const dragStart = useRef<{x: number; scrollLeft: number} | null>(null);
+  const [dragging, setDragging] = useState(false);
+
   if (testimonials.length === 0) return null;
   const ordered = pickForLocale(locale);
+
+  const onPointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
+    if (e.button !== 0 || !scrollRef.current) return;
+    scrollRef.current.setPointerCapture(e.pointerId);
+    dragStart.current = {x: e.clientX, scrollLeft: scrollRef.current.scrollLeft};
+    setDragging(true);
+  };
+
+  const onPointerMove = (e: ReactPointerEvent<HTMLDivElement>) => {
+    if (!dragStart.current || !scrollRef.current) return;
+    scrollRef.current.scrollLeft = dragStart.current.scrollLeft - (e.clientX - dragStart.current.x);
+  };
+
+  const endDrag = (e: ReactPointerEvent<HTMLDivElement>) => {
+    if (scrollRef.current?.hasPointerCapture(e.pointerId)) {
+      scrollRef.current.releasePointerCapture(e.pointerId);
+    }
+    dragStart.current = null;
+    setDragging(false);
+  };
+
+  const scrollByCard = (dir: -1 | 1) => {
+    const node = scrollRef.current;
+    if (!node) return;
+    const card = node.querySelector('li');
+    const cardWidth = card?.clientWidth ?? 320;
+    node.scrollBy({left: dir * (cardWidth + 16), behavior: 'smooth'});
+  };
 
   return (
     <Section variant="muted">
@@ -64,34 +98,65 @@ export function Testimonials({locale}: {locale: Locale}) {
           </a>
         </div>
 
-        <div className="mt-10 overflow-x-auto pb-4 snap-x snap-mandatory [scrollbar-width:thin]">
-          <ul className="flex gap-4">
-            {ordered.map((r, i) => (
-              <li
-                key={`${r.name}-${i}`}
-                className="snap-start shrink-0 w-[300px] sm:w-[340px] rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm flex flex-col"
-              >
-                <Stars rating={r.rating} />
-                <p className="mt-4 text-zinc-700 leading-relaxed">“{r.text}”</p>
-                <div className="mt-5 pt-4 border-t border-zinc-100 flex items-center gap-3 text-sm">
-                  {r.avatar ? (
-                    <img
-                      src={r.avatar}
-                      alt=""
-                      loading="lazy"
-                      width={40}
-                      height={40}
-                      className="h-10 w-10 rounded-full object-cover bg-zinc-100"
-                    />
-                  ) : null}
-                  <div>
-                    <div className="font-medium text-zinc-900">{r.name}</div>
-                    <div className="text-zinc-500">{r.date}</div>
+        <div className="relative mt-10">
+          <button
+            type="button"
+            onClick={() => scrollByCard(-1)}
+            aria-label="Previous"
+            className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10 h-10 w-10 items-center justify-center rounded-full bg-white border border-zinc-200 shadow-md hover:border-brand-300 transition-colors"
+          >
+            <ChevronLeft className="h-5 w-5 text-zinc-700" />
+          </button>
+
+          <div
+            ref={scrollRef}
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={endDrag}
+            onPointerCancel={endDrag}
+            className={cn(
+              'overflow-x-auto pb-4 snap-x snap-mandatory [scrollbar-width:thin] touch-pan-x',
+              dragging ? 'cursor-grabbing select-none' : 'cursor-grab',
+            )}
+          >
+            <ul className="flex gap-4">
+              {ordered.map((r, i) => (
+                <li
+                  key={`${r.name}-${i}`}
+                  className="snap-start shrink-0 w-[300px] sm:w-[340px] rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm flex flex-col"
+                >
+                  <Stars rating={r.rating} />
+                  <p className="mt-4 text-zinc-700 leading-relaxed">“{r.text}”</p>
+                  <div className="mt-5 pt-4 border-t border-zinc-100 flex items-center gap-3 text-sm">
+                    {r.avatar ? (
+                      <img
+                        src={r.avatar}
+                        alt=""
+                        loading="lazy"
+                        draggable={false}
+                        width={40}
+                        height={40}
+                        className="h-10 w-10 rounded-full object-cover bg-zinc-100"
+                      />
+                    ) : null}
+                    <div>
+                      <div className="font-medium text-zinc-900">{r.name}</div>
+                      <div className="text-zinc-500">{r.date}</div>
+                    </div>
                   </div>
-                </div>
-              </li>
-            ))}
-          </ul>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => scrollByCard(1)}
+            aria-label="Next"
+            className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10 h-10 w-10 items-center justify-center rounded-full bg-white border border-zinc-200 shadow-md hover:border-brand-300 transition-colors"
+          >
+            <ChevronRight className="h-5 w-5 text-zinc-700" />
+          </button>
         </div>
       </Container>
     </Section>
