@@ -6,8 +6,8 @@
  *
  * Uses the Places API (New). Fetches the same reviews twice (languageCode=bg
  * and =en) and merges by (author, publishTime) so each card has BG and EN
- * variants. All reviews returned by the API are kept (Places API caps the
- * response at ~5 reviews regardless of the total userRatingCount).
+ * variants. Reviews below MIN_RATING are filtered out (the API returns at
+ * most ~5 reviews per request regardless of the total userRatingCount).
  */
 import {writeFile, mkdir} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
@@ -29,6 +29,10 @@ if (!KEY) {
 // (0xac4bf725ca2b3771:0xceed8156c209bef4 → ChIJcTcryiX3S6wR9L4JwlaB7c4).
 const PLACE_ID = 'ChIJcTcryiX3S6wR9L4JwlaB7c4';
 const GOOGLE_CID_URL = 'https://www.google.com/maps?cid=14910716150916169460';
+
+// Marketing site curates positive reviews. Aggregate rating from the badge
+// keeps the page honest about the full picture.
+const MIN_RATING = 4;
 
 async function fetchPlaceDetails(placeId, languageCode) {
   const url = `https://places.googleapis.com/v1/places/${placeId}?languageCode=${languageCode}`;
@@ -101,9 +105,11 @@ async function main() {
     `✓ Aggregate: ${bgDetails.rating} ★ (${bgDetails.userRatingCount} reviews total)`,
   );
 
-  const bgReviews = bgDetails.reviews ?? [];
-  const enReviews = enDetails.reviews ?? [];
-  console.log(`✓ Reviews returned: ${bgReviews.length} (bg), ${enReviews.length} (en)`);
+  const bgReviews = (bgDetails.reviews ?? []).filter((r) => r.rating >= MIN_RATING);
+  const enReviews = (enDetails.reviews ?? []).filter((r) => r.rating >= MIN_RATING);
+  console.log(
+    `✓ Reviews (≥${MIN_RATING}★): ${bgReviews.length} (bg), ${enReviews.length} (en)`,
+  );
 
   const enByKey = new Map(enReviews.map((r) => [reviewKey(r), r]));
 
