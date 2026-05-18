@@ -24,14 +24,13 @@ function Stars({rating}: {rating: number}) {
 
 function pickForLocale(locale: Locale): Testimonial[] {
   const native = testimonials.filter((t) => t.lang === locale);
-  const other = testimonials.filter((t) => t.lang !== locale);
-  return [...native, ...other];
+  return native.length > 0 ? native : [...testimonials];
 }
 
 export function Testimonials({locale}: {locale: Locale}) {
   const {t} = useTranslation();
   if (testimonials.length === 0) return null;
-  const ordered = pickForLocale(locale).slice(0, 6);
+  const ordered = pickForLocale(locale);
 
   return (
     <Section variant="muted">
@@ -65,33 +64,35 @@ export function Testimonials({locale}: {locale: Locale}) {
           </a>
         </div>
 
-        <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {ordered.map((r, i) => (
-            <li
-              key={`${r.name}-${i}`}
-              className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm flex flex-col"
-            >
-              <Stars rating={r.rating} />
-              <p className="mt-4 text-zinc-700 leading-relaxed">“{r.text}”</p>
-              <div className="mt-5 pt-4 border-t border-zinc-100 flex items-center gap-3 text-sm">
-                {r.avatar ? (
-                  <img
-                    src={r.avatar}
-                    alt=""
-                    loading="lazy"
-                    width={40}
-                    height={40}
-                    className="h-10 w-10 rounded-full object-cover bg-zinc-100"
-                  />
-                ) : null}
-                <div>
-                  <div className="font-medium text-zinc-900">{r.name}</div>
-                  <div className="text-zinc-500">{r.date}</div>
+        <div className="mt-10 overflow-x-auto pb-4 snap-x snap-mandatory [scrollbar-width:thin]">
+          <ul className="flex gap-4">
+            {ordered.map((r, i) => (
+              <li
+                key={`${r.name}-${i}`}
+                className="snap-start shrink-0 w-[300px] sm:w-[340px] rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm flex flex-col"
+              >
+                <Stars rating={r.rating} />
+                <p className="mt-4 text-zinc-700 leading-relaxed">“{r.text}”</p>
+                <div className="mt-5 pt-4 border-t border-zinc-100 flex items-center gap-3 text-sm">
+                  {r.avatar ? (
+                    <img
+                      src={r.avatar}
+                      alt=""
+                      loading="lazy"
+                      width={40}
+                      height={40}
+                      className="h-10 w-10 rounded-full object-cover bg-zinc-100"
+                    />
+                  ) : null}
+                  <div>
+                    <div className="font-medium text-zinc-900">{r.name}</div>
+                    <div className="text-zinc-500">{r.date}</div>
+                  </div>
                 </div>
-              </div>
-            </li>
-          ))}
-        </ul>
+              </li>
+            ))}
+          </ul>
+        </div>
       </Container>
     </Section>
   );

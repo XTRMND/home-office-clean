@@ -6,7 +6,8 @@
  *
  * Uses the Places API (New). Fetches the same reviews twice (languageCode=bg
  * and =en) and merges by (author, publishTime) so each card has BG and EN
- * variants. Only rating === 5 is kept.
+ * variants. All reviews returned by the API are kept (Places API caps the
+ * response at ~5 reviews regardless of the total userRatingCount).
  */
 import {writeFile, mkdir} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
@@ -100,9 +101,9 @@ async function main() {
     `✓ Aggregate: ${bgDetails.rating} ★ (${bgDetails.userRatingCount} reviews total)`,
   );
 
-  const bgReviews = (bgDetails.reviews ?? []).filter((r) => r.rating === 5);
-  const enReviews = (enDetails.reviews ?? []).filter((r) => r.rating === 5);
-  console.log(`✓ Five-star reviews: ${bgReviews.length} (bg), ${enReviews.length} (en)`);
+  const bgReviews = bgDetails.reviews ?? [];
+  const enReviews = enDetails.reviews ?? [];
+  console.log(`✓ Reviews returned: ${bgReviews.length} (bg), ${enReviews.length} (en)`);
 
   const enByKey = new Map(enReviews.map((r) => [reviewKey(r), r]));
 
@@ -135,9 +136,11 @@ async function main() {
     const bgText = bg.text?.text ?? bg.originalText?.text ?? '';
     const enText = en?.text?.text ?? en?.originalText?.text ?? bgText;
 
+    const rating = bg.rating ?? en?.rating ?? 5;
+
     records.push({
       name: author,
-      rating: 5,
+      rating,
       date: formatDate(bg.publishTime, 'bg'),
       text: bgText,
       lang: 'bg',
@@ -145,7 +148,7 @@ async function main() {
     });
     records.push({
       name: author,
-      rating: 5,
+      rating,
       date: formatDate(bg.publishTime, 'en'),
       text: enText,
       lang: 'en',

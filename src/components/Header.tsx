@@ -1,12 +1,45 @@
 import {useState} from 'react';
 import {NavLink, useParams} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
-import {Phone, Menu, X} from 'lucide-react';
+import {Phone, Menu, X, Star} from 'lucide-react';
 import {Container} from '@/components/ui/Container';
 import {LanguageSwitcher} from '@/components/LanguageSwitcher';
 import {ExternalLinkButton} from '@/components/ui/Button';
 import {siteInfo} from '@/data/siteInfo';
+import {googleAggregate} from '@/data/testimonials';
 import {cn} from '@/lib/cn';
+
+function GoogleBadge({className}: {className?: string}) {
+  const filled = Math.round(googleAggregate.rating);
+  return (
+    <a
+      href={googleAggregate.url}
+      target="_blank"
+      rel="noreferrer noopener"
+      aria-label={`Google: ${googleAggregate.rating}/5 (${googleAggregate.count})`}
+      className={cn(
+        'inline-flex items-center gap-1.5 rounded-full border border-zinc-200 bg-white px-2.5 py-1 text-xs hover:border-brand-300 transition-colors',
+        className,
+      )}
+    >
+      <span className="font-medium text-zinc-500">Google</span>
+      <span className="font-semibold text-zinc-900">{googleAggregate.rating.toFixed(1)}</span>
+      <span className="flex gap-0.5" aria-hidden>
+        {[1, 2, 3, 4, 5].map((i) => (
+          <Star
+            key={i}
+            className={
+              i <= filled
+                ? 'h-3 w-3 fill-amber-400 text-amber-400'
+                : 'h-3 w-3 fill-zinc-200 text-zinc-200'
+            }
+          />
+        ))}
+      </span>
+      <span className="text-zinc-500">({googleAggregate.count})</span>
+    </a>
+  );
+}
 
 export function Header() {
   const {t} = useTranslation();
@@ -52,6 +85,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
+          <GoogleBadge className="hidden md:inline-flex" />
           <ExternalLinkButton
             href={siteInfo.phoneHref}
             variant="primary"
@@ -96,6 +130,7 @@ export function Header() {
               <Phone className="h-4 w-4" />
               {siteInfo.phoneDisplay}
             </a>
+            <GoogleBadge className="mt-3 self-start" />
           </Container>
         </div>
       )}
