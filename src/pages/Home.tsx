@@ -56,7 +56,7 @@ export function Home() {
           </div>
         </Container>
 
-        <Container className="mt-16 grid grid-cols-2 gap-6 sm:grid-cols-4">
+        <Container className="mt-16 grid grid-cols-2 gap-6 sm:grid-cols-3">
           {stats.map((stat: Stat, i: number) => (
             <div key={i} className="text-center">
               <div className="text-3xl font-bold tracking-tight text-zinc-900">{stat.value}</div>

@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "lint": "eslint",
-    "build:favicon": "node scripts/build-favicon.mjs"
+    "build:favicon": "node scripts/build-favicon.mjs",
+    "fetch:reviews": "node scripts/fetch-google-reviews.mjs"
   },
   "dependencies": {
     "@hcaptcha/react-hcaptcha": "^2.0.2",

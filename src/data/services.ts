@@ -1,5 +1,15 @@
 import type {LucideIcon} from 'lucide-react';
-import {Sparkles, Brush, Hammer, PanelTopOpen, Briefcase, Repeat} from 'lucide-react';
+import {
+  Sparkles,
+  Brush,
+  Hammer,
+  PanelTopOpen,
+  Briefcase,
+  Repeat,
+  BedDouble,
+  Sofa,
+  Armchair,
+} from 'lucide-react';
 
 export type Locale = 'bg' | 'en';
 
@@ -211,6 +221,105 @@ export const services: readonly Service[] = [
           'Report on any issue or maintenance need',
         ],
         body: 'We work before or after office hours so we don\'t disrupt your team. We sign confidentiality agreements and, where needed, access protocols for sensitive areas.',
+      },
+    },
+  },
+  {
+    slug: 'prane-matraci',
+    order: 70,
+    icon: BedDouble,
+    translations: {
+      bg: {
+        title: 'Пране на матраци',
+        short: 'Дълбоко екстракционно пране — премахваме пот, акари и алергени.',
+        includes: [
+          'Изпиване с професионален екстрактор от двете страни',
+          'Премахване на петна, акари и алергени',
+          'Антибактериална обработка',
+          'Дезодориране и неутрализиране на миризми',
+          'Подходящо за всички видове матраци, включително memory foam',
+          'Изсушаване — обикновено 2–4 часа',
+        ],
+        body: 'Матракът събира пот, кожни люспи, акари и алергени, които обикновеното пране не премахва. Работим с професионален екстрактор и сертифицирани препарати, безопасни за деца, домашни любимци и хора с алергии. Препоръчваме на всеки 6–12 месеца.',
+      },
+      en: {
+        title: 'Mattress cleaning',
+        short: 'Deep extraction wash — removing sweat, mites and allergens.',
+        includes: [
+          'Extractor wash on both sides',
+          'Stain, dust-mite and allergen removal',
+          'Antibacterial treatment',
+          'Odour neutralisation',
+          'Suitable for all mattress types, including memory foam',
+          'Drying — usually 2–4 hours',
+        ],
+        body: 'A mattress collects sweat, skin flakes, mites and allergens that ordinary cleaning won\'t remove. We use a professional extractor and certified products that are safe for children, pets and people with allergies. We recommend it every 6–12 months.',
+      },
+    },
+  },
+  {
+    slug: 'prane-divani',
+    order: 80,
+    icon: Sofa,
+    translations: {
+      bg: {
+        title: 'Пране на дивани и фотьойли',
+        short: 'Връщаме мекия мебел в свеж и хигиеничен вид.',
+        includes: [
+          'Изпиване на тапицерията с екстрактор',
+          'Премахване на петна от храна, кафе, вино',
+          'Дезинфекция и неутрализиране на миризми',
+          'Премахване на козина и люспи от домашни любимци',
+          'Защита от бъдещи петна (по избор)',
+          'Внимателно отношение към велур, шенил, микрофибър',
+        ],
+        body: 'Преди започване проверяваме типа на материала и тестваме препарата на скрита зона. Подходящо за памучни, велурени, микрофибърни и шенилни тапицерии. Изсушаването е 3–5 часа в зависимост от плътността.',
+      },
+      en: {
+        title: 'Sofa & armchair cleaning',
+        short: 'Bringing upholstered furniture back to fresh and hygienic.',
+        includes: [
+          'Extractor wash of the upholstery',
+          'Removing food, coffee and wine stains',
+          'Disinfection and odour neutralisation',
+          'Pet hair and dander removal',
+          'Stain protection coating (optional)',
+          'Careful treatment of velvet, chenille, microfibre',
+        ],
+        body: 'Before starting we identify the fabric and patch-test the product on a hidden area. Suitable for cotton, velvet, microfibre and chenille upholstery. Drying takes 3–5 hours depending on density.',
+      },
+    },
+  },
+  {
+    slug: 'prane-stolove',
+    order: 90,
+    icon: Armchair,
+    translations: {
+      bg: {
+        title: 'Пране на столове и офис кресла',
+        short: 'Свежи столове за дома, ресторанта или офиса.',
+        includes: [
+          'Изпиване на седалка, облегалка и подлакътници',
+          'Премахване на петна и неприятни миризми',
+          'Антибактериална обработка',
+          'Цени на бройка — изгодни оферти за повече столове',
+          'Гъвкав график — без прекъсване на работа',
+          'Подходящо за трапезни, офис и заведителски столове',
+        ],
+        body: 'Работим с трапезни столове, офис кресла, барбарии и стол-фотьойли в заведения. За корпоративни клиенти и хотелиерство предлагаме обиколка по график — без да спираме работата ви.',
+      },
+      en: {
+        title: 'Chair & office-chair cleaning',
+        short: 'Fresh chairs for the home, the restaurant or the office.',
+        includes: [
+          'Cleaning seat, backrest and armrests',
+          'Stain and odour removal',
+          'Antibacterial treatment',
+          'Per-piece pricing — better rates in volume',
+          'Flexible scheduling — no disruption to your work',
+          'Suitable for dining, office and hospitality seating',
+        ],
+        body: 'We clean dining chairs, office chairs, bar stools and restaurant seating. For corporate and hospitality clients we run scheduled rounds so we don\'t interrupt your operation.',
       },
     },
   },

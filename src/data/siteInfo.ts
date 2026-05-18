@@ -11,8 +11,9 @@ export const siteInfo = {
     en: 'Mon–Sat: 08:00 – 17:00',
   },
   social: {
-    facebook: '', // TODO fill when available
-    google: '',
+    facebook: '',
+    google: 'https://www.google.com/maps?cid=14910716150916169460',
   },
+  googleReviewsUrl: 'https://www.google.com/maps?cid=14910716150916169460',
   yearsInBusiness: new Date().getFullYear() - 2019,
 } as const;

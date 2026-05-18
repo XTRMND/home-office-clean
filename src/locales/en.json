@@ -25,9 +25,11 @@
     },
     "stats": [
       {"value": "{{years}}+", "label": "years of experience"},
-      {"value": "1200+", "label": "happy clients"},
-      {"value": "6", "label": "service types"},
-      {"value": "100%", "label": "insured team"}
+      {"value": "500+", "label": "cleanings completed"},
+      {"value": "24h", "label": "response time"},
+      {"value": "9", "label": "service types"},
+      {"value": "100%", "label": "insured team"},
+      {"value": "Free", "label": "on-site quote"}
     ],
     "services": {
       "eyebrow": "Services",
@@ -61,6 +63,12 @@
       "title": "Ready when you are",
       "subtitle": "Tell us briefly what you need and we'll come back with a quote within one working day."
     }
+  },
+  "testimonials": {
+    "eyebrow": "Reviews",
+    "title": "What our clients say",
+    "subtitle": "Real reviews from Google. Tap the card on the right for the full list.",
+    "googleReviews": "{{count}} reviews on Google"
   },
   "servicesIndex": {
     "title": "Services",
